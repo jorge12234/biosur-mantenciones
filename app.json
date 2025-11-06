@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "Biosur Mantenciones",
+    "slug": "biosur-mantenciones",
+    "scheme": "biosur-mantenciones",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Se necesita acceso a la cámara para escanear y tomar fotos."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Se usa tu ubicación para registrar el punto de la mantención."
+        }
+      ],
+      "expo-sqlite"
+    ],
+    "android": {
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ],
+      "package": "com.jorgebio.biosurmantenciones"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0924d2ec-c5cf-47bb-aaf1-07cfc42e6bc4"
+      }
+    }
+  }
+}

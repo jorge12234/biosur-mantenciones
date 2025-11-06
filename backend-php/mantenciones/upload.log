@@ -1,0 +1,23 @@
+[2025-10-21T15:43:45+00:00] hit upload.php
+[2025-10-21T15:43:45+00:00] OK id=31 file=mant_1761061425_3850.jpg
+[2025-10-21T15:53:42+00:00] OK id=32 imagen=
+[2025-10-21T15:53:42+00:00] MAIL SKIP (sin correo de cliente)
+[2025-10-21T15:54:39+00:00] OK id=33 imagen=
+[2025-10-21T15:54:39+00:00] MAIL SKIP (sin correo de cliente)
+[2025-10-21T16:16:34+00:00] OK id=34 imagen=mantencion_20251021_161634_79efb6ce.jpg
+[2025-10-21T16:16:35+00:00] MAIL ERROR Invalid address:  (From): 
+[2025-10-21T16:19:26+00:00] OK id=35 imagen=mantencion_20251021_161926_8a4e63ca.jpg
+[2025-10-21T16:19:26+00:00] MAIL ERROR Invalid address:  (From): 
+[2025-10-21T16:20:02+00:00] OK id=36 imagen=mantencion_20251021_162002_872ec08c.jpg
+[2025-10-21T16:20:02+00:00] MAIL ERROR Invalid address:  (From): 
+[2025-10-21T16:22:53+00:00] hit upload.php
+[2025-10-21T16:22:53+00:00] OK id=37 file=mant_1761063773_8273.jpg
+[2025-10-21 16:41:08] INPUT: []
+[2025-10-21 16:41:08] INSERT OK id=38
+[2025-10-21 16:41:08] MAIL SKIP: cliente sin correo
+[2025-10-21 16:42:04] INPUT: []
+[2025-10-21 16:42:04] INSERT OK id=39
+[2025-10-21 16:42:04] MAIL SKIP: cliente sin correo
+[2025-10-21 16:47:48] INPUT: []
+[2025-10-21 16:47:48] INSERT OK id=40
+[2025-10-21 16:47:48] MAIL SKIP: cliente_id es NULL en el JSON
