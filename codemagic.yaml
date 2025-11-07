@@ -2,20 +2,18 @@ workflows:
   expo_android_apk:
     name: Expo Android APK
     max_build_duration: 60
-    instance_type: linux_x1
+    instance_type: linux
 
     environment:
       node: 18.18.2
       npm: 9.8.1
-      vars:
-        # No pongas el valor aquí, lo agregarás en Codemagic como variable segura
-        EXPO_TOKEN: En_Codemagic
+      groups:
+        - En_Codemagic   # <-- el grupo que creaste con EXPO_TOKEN
 
     cache:
       cache_paths:
         - $HOME/.npm
         - $HOME/.cache/eas
-        - $HOME/.cache/expo
 
     scripts:
       - name: Instalar dependencias
@@ -24,21 +22,46 @@ workflows:
       - name: Instalar EAS CLI
         script: npm i -g eas-cli
 
-      - name: Autenticarse en Expo (con token)
+      # Si no tienes definido el perfil "apk", creamos un eas.json mínimo
+      - name: Asegurar perfil APK en eas.json
         script: |
-          # Si ya estás autenticado, whoami no falla; si no, login con token
-          eas whoami || eas account:login --token "$EXPO_TOKEN"
+          if [ ! -f eas.json ]; then
+            cat > eas.json <<'JSON'
+            {
+              "build": {
+                "apk": {
+                  "android": { "buildType": "apk" }
+                }
+              }
+            }
+            JSON
+          fi
 
-      - name: Compilar APK con EAS (perfil "preview")
+      # EAS usa EXPO_TOKEN desde el entorno (lo inyecta Codemagic por el grupo)
+      - name: Lanzar build APK en Expo (EAS cloud)
         script: |
-          # Debes tener un eas.json con el perfil 'preview' y buildType=apk
-          eas build -p android --profile preview --non-interactive --wait
+          set -e
+          eas build -p android --profile apk --non-interactive --json > build.json
+          echo "Build JSON:"
+          cat build.json
 
-      - name: Descargar el artefacto (APK) y guardarlo para Codemagic
-        script: |
-          # Descarga el último build de Android y lo guarda como build.apk
-          eas build:download --platform android --latest --path build.apk
-          ls -lh build.apk
+          # Extraer la URL de la página del build y luego la URL del artefacto
+          BUILD_ID=$(node -e "console.log(require('./build.json')[0].id)")
+          echo "BUILD_ID=$BUILD_ID"
+
+          # Obtener info del build para leer el artifact URL
+          eas build:view $BUILD_ID --json > build_info.json
+          ARTIFACT_URL=$(node -e "console.log(require('./build_info.json').artifacts?.buildUrl || '')")
+
+          echo "Artifact URL: $ARTIFACT_URL"
+
+          mkdir -p artifacts
+          if [ -n "$ARTIFACT_URL" ]; then
+            curl -L "$ARTIFACT_URL" -o artifacts/app.apk
+          else
+            echo "No se pudo obtener la URL del APK."
+            exit 1
+          fi
 
     artifacts:
-      - build.apk
+      - artifacts/*.apk
