@@ -1,0 +1,34 @@
+# Node / Expo
+node_modules/
+.expo/
+.expo-shared/
+dist/
+npm-debug.log*
+yarn-error.log
+*.log
+
+# Android
+android/.gradle/
+android/local.properties
+android/app/build/
+android/build/
+android/.idea/
+android/caches/
+*.keystore
+*.jks
+
+# iOS (por si aparece)
+ios/Pods/
+ios/build/
+
+# Credenciales y llaves
+*.p12
+*.pem
+*.key
+*.mobileprovision
+.env
+.env.*
+
+# Otros
+.DS_Store
+Thumbs.db
